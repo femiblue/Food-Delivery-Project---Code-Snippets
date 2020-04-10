@@ -1,0 +1,27 @@
+category:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/CategoryController.php"
+dish:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/DishController.php"
+shop:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/ShopController.php"
+favorites:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/FavoritesController.php"
+specialoffers:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/SpecialoffersController.php"
+clientaddress:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/ClientAddressController.php"
+order:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/OrderController.php"
+orderdish:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/OrderDishController.php"
+deliveryorder:
+    type:     rest
+    resource: "@SuRestaurantBundle/Controller/Api/Rest/DeliveryOrderController.php"

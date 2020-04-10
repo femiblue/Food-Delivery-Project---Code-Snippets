@@ -1,0 +1,34 @@
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /
+
+fos_user_profile:
+    resource: "@SuUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@SuUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@SuUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@SuUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /change_password
+
+connect_facebook:
+    resource: "@KnpUGuardBundle/Resources/config/routing/connect_facebook.xml"
+    prefix: /connect/facebook
+
+connect_facebook_check:
+    resource: "@KnpUGuardBundle/Resources/config/routing/connect_facebook_check.xml"
+    prefix: /connect/facebook-check
+
+connect_facebook_registration:
+    resource: "@KnpUGuardBundle/Resources/config/routing/connect_facebook_registration.xml"
+    prefix: /connect/facebook/registration
+#acme_api_demos:
+#    type: rest
+#    resource: Su\UserBundle\Controller\DemoController

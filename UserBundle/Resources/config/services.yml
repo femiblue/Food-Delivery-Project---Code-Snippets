@@ -1,0 +1,8 @@
+services:
+#    su_user.example:
+#        class: Su\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    su_user.form.registration:
+        class: Su\UserBundle\Form\RegistrationType
+        tags:
+          - {name: form.type, alias: su_user_registration }

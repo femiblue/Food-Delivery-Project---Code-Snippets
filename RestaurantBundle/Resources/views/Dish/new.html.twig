@@ -1,0 +1,25 @@
+{% extends 'JordiLlonchCrudGeneratorBundle::layout.html.twig' %}
+
+{% block title %}
+{{ parent() }} - {{ 'views.new.creation'|trans({'%entity%': 'Dish'}, 'JordiLlonchCrudGeneratorBundle') }}
+{% endblock %}
+
+{% block page %}
+
+<h1>{{ 'views.new.creation'|trans({'%entity%': 'Dish'}, 'JordiLlonchCrudGeneratorBundle') }}</h1>
+
+<form class="well" action="{{ path('dish_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit" class="btn btn-success">{{ 'views.new.create'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+    </p>
+</form>
+
+<div>
+    <div class="float-left">
+        <a class="btn" href="{{ path('dish') }}">
+            {{ 'views.recordactions.backtothelist'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+        </a>
+    </div>
+</div>
+{% endblock %}

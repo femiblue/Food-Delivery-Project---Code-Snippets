@@ -1,0 +1,149 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<div style="height: 50px;"></div>
+<section>
+    <div class="container">
+        <div class="row">
+        
+            
+            <div class="col-sm-12 padding-right">
+          {% if entity_dishes %}
+              
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">{{ entity_cat_name}}</h2>
+                   {% for entity_dishes_val in entity_dishes %}
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="{{ asset('images/dish/') }}/{{ entity_dishes_val.image }}" alt="" />
+                                    {% if entity_dishes_val.discount_price > 0 %}
+                                    <h2 style="font-size: 22px;"><strike style="color:#FF9900 ;">${{ entity_dishes_val.price }}</strike> | ${{ entity_dishes_val.discount_price }}</h2>
+                                    {% else %}
+                                    <h2 style="font-size: 22px;">${{ entity_dishes_val.price }}</h2>
+                                    {% endif %}
+                                    
+                                    <p>{{ entity_dishes_val.name }}</p>
+                                    <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+                                     <input type="hidden" value="1" name = "qty" id="qty" />
+                                     <input type="hidden" value="{{ entity_dishes_val.discount_price }}" name = "discount_price" id="discount_price" />
+                                     <input type="hidden" value="{{ entity_dishes_val.dishId }}"  name="dish_id" id="dish_id"/>
+                                     <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>&nbsp;
+                                    
+                                    </form>
+                                    
+                                    <div class="choose">
+									 	
+                                        {% if entity_dishes_val.is_favorite == true %}
+                                        <form name="remove_from_favorite" method="post" action="{{path('front_office_user_removefromfavorite')}}" >					  
+                                          <a href="{{path('front_office_user_dish', {'id': entity_dishes_val.snug})  }}" style="color: #FFF;"  title="View Dish Detail"><button type="button" class="btn btn-default mydet"  ><i class="fa fa-cutlery"></i> Dish Detail</button></a>
+                                          <input type="hidden" value="{{ entity_dishes_val.fav_id }}" name = "id" id="id" />
+                                          <button type="submit" class="btn btn-default myfav" title="Remove from Favorites"  ><i class="fa fa-heart"></i> Remove</button>
+                                           
+                                        </form>
+                                        
+                                        {% else %}
+                                        <form name="add_to_favorite" method="post" action="{{path('front_office_user_addtofavorites')}}" >					  
+                                          <a href="{{path('front_office_user_dish', {'id': entity_dishes_val.snug})  }}" style="color: #FFF;"  title="View Dish Detail"><button type="button" class="btn btn-default mydet"  ><i class="fa fa-cutlery"></i> Dish Detail</button></a>
+                                          <input type="hidden" value="{{ entity_dishes_val.dishId }}" name = "id" id="id" />
+                                          <button type="submit" class="btn btn-default addmyfav" title="Add to Favorites"  ><i class="fa fa-heart"></i> Add</button>
+                                           
+                                        </form>
+                                        {% endif %}
+									  </ul>
+								    </div>
+                                </div>
+                                <div class="product-overlay ">
+                                    <div class="overlay-content ">
+                                        <img src="{{ asset('images/dish/') }}/{{ entity_dishes_val.image }}" alt="" />
+                                        {% if entity_dishes_val.discount_price > 0 %}
+                                        <h2 style="font-size: 22px;"><strike style="color:#FF9900 ;">${{ entity_dishes_val.price }}</strike> | ${{ entity_dishes_val.discount_price }}</h2>
+                                        {% else %}
+                                        <h2 style="font-size: 22px;">${{ entity_dishes_val.price }}</h2>
+                                        {% endif %}
+                                        <p>{{ entity_dishes_val.name }}</p>
+                                        <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+                                         <input type="hidden" value="1" name = "qty" id="qty" />
+                                         <input type="hidden" value="{{ entity_dishes_val.discount_price }}" name = "discount_price" id="discount_price" />
+                                         <input type="hidden" value="{{ entity_dishes_val.dishId }}"  name="dish_id" id="dish_id"/>
+                                         <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>&nbsp;
+                                        
+                                        </form>
+                                    <div class="choose">
+									 	
+                                        {% if entity_dishes_val.is_favorite == true %}
+                                        <form name="remove_from_favorite" method="post" action="{{path('front_office_user_removefromfavorite')}}" >					  
+                                          <a href="{{path('front_office_user_dish', {'id': entity_dishes_val.snug})  }}" style="color: #FFF;"  title="View Dish Detail"><button type="button" class="btn btn-default mydet"  ><i class="fa fa-cutlery"></i> Dish Detail</button></a>
+                                          <input type="hidden" value="{{ entity_dishes_val.fav_id }}" name = "id" id="id" />
+                                          <button type="submit" class="btn btn-default myfav" title="Remove from Favorites"  ><i class="fa fa-heart"></i> Remove</button>
+                                           
+                                        </form>
+                                        
+                                        {% else %}
+                                        <form name="add_to_favorite" method="post" action="{{path('front_office_user_addtofavorites')}}" >					  
+                                          <a href="{{path('front_office_user_dish', {'id': entity_dishes_val.snug})  }}" style="color: #FFF;"  title="View Dish Detail"><button type="button" class="btn btn-default mydet"  ><i class="fa fa-cutlery"></i> Dish Detail</button></a>
+                                          <input type="hidden" value="{{ entity_dishes_val.dishId }}" name = "id" id="id" />
+                                          <button type="submit" class="btn btn-default addmyfav" title="Add to Favorites"  ><i class="fa fa-heart"></i> Add</button>
+                                           
+                                        </form>
+                                        {% endif %}
+									  </ul>
+								    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>                    
+                    {% endfor %}
+                    
+                    
+                </div>
+                <hr />
+            {% endif %}
+            
+            {% if entity_fav %}
+              
+                <!--features_items-->
+                {% include 'SuFrontOfficeUserBundle:Shop:sub_favorites.html.twig' %}
+            
+              {% endif %}
+            </div>
+             
+              
+        
+             
+              
+
+            
+         
+              
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+{% endblock %}
+
+</body>
+</html>

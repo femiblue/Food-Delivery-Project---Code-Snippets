@@ -1,0 +1,116 @@
+{% extends 'JordiLlonchCrudGeneratorBundle::layout.html.twig' %}
+
+{% block title %}
+{{ parent() }} - {{ 'views.index.list'|trans({'%entity%': 'ClientOrder'}, 'JordiLlonchCrudGeneratorBundle') }}
+{% endblock %}
+
+{% block page %}
+<div class="row">
+
+    <div class="span8">
+        <h1>{{ 'views.index.list'|trans({'%entity%': 'ClientOrder'}, 'JordiLlonchCrudGeneratorBundle') }}</h1>
+    </div>
+    <div class="span2">
+        {% if form_errors(filterForm) %}
+        <div class="alert alert-block alert-error fade in form-errors">
+            {{ form_errors(filterForm) }}
+        </div>
+        {% endif %}
+        &nbsp;
+    </div>
+    <div class="span2">
+        <div class="filters-right">
+            <a class="btn dropdown-toggle" data-toggle="collapse" data-target="#filters">
+                {{ 'views.index.filters'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+                <span class="caret"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="span12">
+        <div id="filters" class="collapse">
+
+            <form class="well" action="{{ path('clientorder') }}" method="get" {{ form_enctype(filterForm) }}>
+                {{ form_row(filterForm.id) }}
+                {{ form_row(filterForm.deliveryFee) }}
+                {{ form_row(filterForm.tax) }}
+                {{ form_row(filterForm.total) }}
+                {{ form_row(filterForm.creationDate) }}
+                {{ form_rest(filterForm) }}
+
+                <p>
+                    <button type="submit" name="filter_action" value="filter">{{ 'views.index.filter'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+                    <button type="submit" name="filter_action" value="reset">{{ 'views.index.reset'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div class="span12">
+
+    <table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Client Name</th>
+            <th>Client Address</th>
+            <th>Dish Ordered</th>
+            <th>Quantity</th>
+            <th>Delivery fee</th>
+            <th>Tax</th>
+            <th>Total</th>
+            <th>Creationdate</th>
+            <th>{{ 'views.index.actions'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('clientorder_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.orderDish.clientAddress.clientName }}</td>
+            <td>{{ entity.orderDish.clientAddress.Address1 }}
+                <br/>
+                {{ entity.orderDish.clientAddress.Address2 }}
+                <br />
+                {{ entity.orderDish.clientAddress.city }},{{ entity.orderDish.clientAddress.zipcode }}
+
+            </td>
+            <td>
+                <strong>{{ entity.orderDish.dish.name }}@ {{ entity.orderDish.dish.price }}</strong>
+
+
+
+
+
+            </td>
+            <td>{{ entity.orderDish.quantity }}</td>
+            <td>{{ entity.deliveryFee }}</td>
+            <td>{{ entity.tax }}</td>
+            <td>{{ entity.total }}</td>
+            <td>{% if entity.creationDate %}{{ entity.creationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+
+        <a class="btn btn-mini" href="{{ path('clientorder_show', { 'id': entity.id }) }}">
+            {{ 'views.actions.show'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+        </a>
+        <a class="btn btn-mini" href="{{ path('clientorder_edit', { 'id': entity.id }) }}">
+            {{ 'views.actions.edit'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+        </a>            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    </div>
+
+    <div class="span4">
+    {{ pagerHtml|raw }}
+    </div>
+
+        <div class="span8">
+    <a class="btn btn-primary likepaginator" href="{{ path('clientorder_new') }}">
+            {{ 'views.index.createnew'|trans({}, 'JordiLlonchCrudGeneratorBundle') }} ClientOrder
+        </a>
+    </div>
+    </div>
+
+{% endblock %}

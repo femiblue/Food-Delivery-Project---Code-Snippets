@@ -1,0 +1,55 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+                <div class="row"><div class="features_items">
+			       <h2 class="title text-center">Reset Password</h2>
+                
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="login-form"><!--login form-->
+                       {% block fos_user_content %}
+                      
+                       {% if invalid_username is defined %}
+                         
+                         <div class="alert alert-danger" style="background-color: #ffffff;"> 
+                          <i class="fa fa-info-circle"></i>
+                         {{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}
+                         </div>
+                       {% endif %}
+						<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                        
+							<input type="text" placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}" id="username" name="username"  required="required" />
+                            
+							<button type="submit" id="_submit" name="_submit" class="btn btn-success" style="border-radius: 5px;"><i class="fa fa-edit" style="color: black;"></i>&nbsp;{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
+                           
+						</form>
+                        {% endblock fos_user_content %}
+                          </div><!--/login form--><br /><br />
+				</div>
+				</div>
+			</div>
+		</div>
+	</section><!--/form-->
+	
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

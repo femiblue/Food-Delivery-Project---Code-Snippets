@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+     <title>{% block title %}Edit Billing Address | Chef Delivery{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/price-range.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('cart.ico') }}" />
+</head><!--/head-->
+
+<body>
+
+{% block body %}
+
+<header id="header" style="border:0px solid; background:#000000;"><!--header-->
+    
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <a href="../../"><img src="{{ asset('images/home/logo.png') }}" alt="" /></a>
+                    </div>
+                   
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"> Aperitives</a></li>
+                            <li><a href="#"> Salads</a></li>
+                            <li><a href="#"> Soups</a></li>
+                            <li><a href="#"> Main Courses</a></li>
+                            <li><a href="#"> Side Dishes</a></li>
+                            <li><a href="#"> Desserts</a></li>                         
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+    <div class="header-bottom"><!--header-bottom-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="search_box pull-left">
+                        <input type="text" placeholder="Search" id="myTextField"/>
+                        <div id="match" style="border: 0px solid #fff;"></div>
+                    </div>
+                   </div>
+                    <div class="mainmenu pull-right">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                          <li> <a href="{{ path('front_office_user_stores') }}"  class="active"> Stores</a> </li>  
+                          <li> <a href="{{ path('front_office_user_homepage') }}"  class="active"> Dish Categories</a> </li>
+                          {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="dropdown">
+                            <a href="#"><i class="fa fa-angle-down"></i>
+                             {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                            </a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="{{ path('front_office_user_basket') }}"><i class="fa fa-shopping-cart" style="font-size: 22px; margin-top: -3px;"></i> 
+                                    My Cart&nbsp;&nbsp;
+                                    {% if num_cart_items > 0 %}
+                                    <div class="cart_circle">
+                                    {{ num_cart_items }}
+                                    </div>
+                                    {% endif %}
+                                    </a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i> My Favorites</a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i> Logout</a></li>
+                                </ul>
+                            </li>
+                         {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}" class="active"><i class="fa fa-lock"></i> Login </a></li>
+                            <li><a href="{{ path('front_office_user_basket') }}" ><i class="fa fa-shopping-cart" style="font-size: 22px; margin-top: -3px;"></i>
+                            {% if num_cart_items > 0 %}
+                            <div class="cart_circle">
+                            {{ num_cart_items }}
+                            </div>
+                            {% endif %}
+                            </a></li>
+                         {% endif %}   
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div><!--/header-bottom-->
+</header><!--/header-->
+
+<div style="height: 30px;"></div>
+<section id="cart_items">
+		<div class="container">
+        
+			<h2 class="title text-center">Edit Billing Address</h2>
+                       
+            {% if app.session.flashBag.has('success') %}
+                <div class="alert alert-success" style="background-color: #ffffff;"> 
+                <i class="fa fa-check-square"></i>
+                    {% for msg in app.session.flashBag.get('success') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="col-sm-6" style="border: 0px solid; border-right:1px dashed #DFA71E; margin-bottom: 20px; margin-top: 20px; ">
+   
+            <form class="well" action="{{ path('front_office_user_updateaddress') }}" method="post" {{ form_enctype(form) }} style="background:transparent; border:0px; color:#ffffff;">
+            {{ form_widget(form) }}
+             
+                <div style="border: 0px solid; margin-top: 10px; position: relative;">
+                    <button type="submit" class="btn btn-success" style="background-color: #DFA71E; border: 0px;">Update</button>
+                </div>
+            </form>
+            </div>
+            
+
+		</div>
+        
+</section>
+
+<footer id="footer"><!--Footer-->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="companyinfo" style="opacity:0.5;">
+                        <img src="{{ asset('images/home/logo.png') }}" alt=""  />
+                    </div>
+                </div>
+
+                <div class="col-sm-5" >
+                    <div class="companyinfo" style="margin-top:40px;">
+                        <form action="#" class="searchform"  >
+                            <div style="display:inline; color:#fff;" >Newsletter: &nbsp;</div>
+                            <div style="display:inline" >
+                                <input type="text" placeholder="Your email address here" />
+                            </div>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-3" >
+                    <div class="companyinfo social-icons ">
+                        <ul class="nav navbar-nav" style="border-left:1px solid;margin-top:10px; ">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-widget" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Menu</a></li>
+                                <li><a href="#">Promos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Packs</a></li>
+                                <li><a href="#">Order</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Pay</a></li>
+                                <li><a href="#">Bills</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-1">
+                        <div class="single-widget">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>We accept:</li>
+                            </ul>
+                        </div>
+                        <div style="display: inline-table; margin-right:8px;"><img src="{{ asset('images/pay/amex.png') }}" alt="" /></div>
+                        <div style="display: inline-table; margin-right:8px;"><img src="{{ asset('images/pay/paypal.png') }}" alt="" /></div>
+                        <div style="display: inline-table; margin-right:8px;"><img src="{{ asset('images/pay/visa.png') }}" alt="" /></div>
+                        <div style="display: inline-table; margin-right:8px;"><img src="{{ asset('images/pay/mastercard.png') }}" alt="" /></div>
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="foot_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6" style="width:100%;">
+                    <div class="contactinfo">
+                        <ul class="nav nav-pills">
+                            <li><a href="#"><i class="fa fa-envelope"></i> contact@strappberry.com</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> 1-800-465-2194</a></li>
+                            <li><a href="#"><i class="fa fa-bookmark"></i> Somerville MA. US.</a></li>
+                            <li><a href="#"><i class="fa fa-barcode"></i> Notice of privacy</a></li>
+                            <li><a href="#"><i class="fa fa-warning"></i> Legal terms and conditions</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <p >Copyright &copy; <script>document.write(new Date().getFullYear())</script> Chef Delivery. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+
+</footer><!--/Footer-->
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+    <script>
+      function updateCartItem(){
+        document.getElementById("update_cart_item").submit();
+      }
+    </script>
+{% endblock %}
+
+</body>
+</html>

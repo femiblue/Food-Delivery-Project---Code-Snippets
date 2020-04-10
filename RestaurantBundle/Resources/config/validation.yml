@@ -1,0 +1,4 @@
+Su\RestaurantBundle\Entity\Category:
+    properties:
+        name:
+            - NotBlank: ~

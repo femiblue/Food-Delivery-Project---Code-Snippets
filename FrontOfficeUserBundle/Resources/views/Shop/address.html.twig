@@ -1,0 +1,164 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<div style="height: 30px;"></div>
+<section id="cart_items">
+		<div class="container">
+        <div class="">
+				<ol class="breadcrumb">
+				  <li class="active">Billing Address</li>
+				  <li><a href="#">Place Order</a></li>
+                  <li><a href="#">Payment</a></li>
+				</ol>
+		</div>
+			<h2 class="title text-center">Billing Address</h2>
+                       
+            {% if app.session.flashBag.has('success') %}
+                <div class="alert alert-success" style="background-color: #ffffff;"> 
+                <i class="fa fa-check-square"></i>
+                    {% for msg in app.session.flashBag.get('success') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="col-sm-6" style="border: 0px solid; border-right:1px dashed #DFA71E; margin-bottom: 20px; margin-top: 20px; ">
+            <h3 class="title text-center" style="color: #DFA71E;">Create a Billing address</h3>
+            <form class="well" action="{{ path('front_office_user_createaddress') }}" method="post" {{ form_enctype(form) }} style="background:transparent; border:0px; color:#ffffff;">
+            {{ form_widget(form) }}
+             
+                <div style="border: 0px solid; margin-top: 10px; position: relative;">
+                    <button type="submit" class="btn btn-success" style="background-color: #DFA71E; border: 0px;">{{ 'views.new.create'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+                </div>
+            </form>
+            </div>
+            <div class="col-sm-6" style="border: 0px solid; color: #ffffff;  margin-bottom: 20px; margin-top: 20px;  ">
+            <h3 class="title text-center" style="color: #DFA71E;">Existing Billing address</h3>
+            {% if mybillingaddresses %}
+            {% for mybillingaddresses_val in mybillingaddresses %}
+                <div class="col-sm-5" style="margin-top: 30px; background-color: #1B1B1B; 
+                margin-right: 10px; padding: 20px; padding-bottom: 0px; border-radius: 10px; margin-left: 20px;">
+                    <div class="product-image-wrapper">
+                    {{mybillingaddresses_val.clientName}}<br />
+                    {{mybillingaddresses_val.address1}}<br />
+                    {{mybillingaddresses_val.city}}<br />
+                    {{mybillingaddresses_val.zipcode}}<br />
+                    {{mybillingaddresses_val.phone}}
+                    </div>
+               <form  action="{{ path('front_office_user_setaddress') }}" method="post" {{ form_enctype(form) }} style="background:transparent; border:0px; color:#ffffff; display: inline; margin-right:5px;">
+                    <input  type="hidden" name="addressid" value="{{mybillingaddresses_val.id}}"/>
+                    <button type="submit" class="btn btn-success" style="background-color: #DFA71E; border: 0px;">Bill To</button>
+               
+            </form>
+             <form  action="{{ path('front_office_user_editaddress') }}" method="post" {{ form_enctype(form) }} style="background:transparent; border:0px; color:#ffffff; display: inline;">
+                    <input  type="hidden" name="addressid" value="{{mybillingaddresses_val.id}}"/>
+                    <button type="submit" class="btn btn-success" style="background-color: #DFA71E; border: 0px;">Edit</button>
+               
+            </form>
+            <br /><br />
+               </div>
+            {% endfor %}
+            {% else %}
+            You dont any billing address.
+            {% endif %}
+             </div>
+			<div class="table-responsive cart_info">
+            
+
+
+            
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image" style="font-weight: bold;">Item</td>
+							<td class="description" style="font-weight: bold;">Description</td>
+							<td class="price" style="font-weight: bold;">Price</td>
+							<td class="quantity" style="font-weight: bold;">Quantity</td>
+							<td class="total" style="font-weight: bold;">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+                    {% for entity_cart_val in entity_cart %}
+						<tr>
+							<td class="cart_product">
+								<a href=""><img src="{{ asset('images/dish/') }}/{{ entity_cart_val.dish_image }}" alt="" style="width:150px; height:150px;"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">{{ entity_cart_val.dish_name }}</a></h4>
+								<p>Web ID: {{ entity_cart_val.dish_id }}</p>
+							</td>
+							<td class="cart_price">
+								<p>$ {{ entity_cart_val.dish_price }}</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<form name="update_cart_item" id="update_cart_item" method="post" action="{{path('front_office_user_update_cart_item')}}" >
+                                    <input type="text" name="quantity" value="{{ entity_cart_val.qty }}" readonly="readonly" style="width: 60px;"/>
+         
+                                    <input type="hidden" name="cartid" value="{{ entity_cart_val.cartid }}">
+									</form>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">
+                                {% set total_price = entity_cart_val.dish_price * entity_cart_val.qty %}
+                                $ {{ total_price }}</p>
+							</td>
+							<td class="cart_delete">
+								<!--<a class="cart_quantity_delete" href="{{path('front_office_user_removeitemfromcart', {'id': entity_cart_val.cartid})  }}"><i class="fa fa-times"></i></a>-->
+							</td>
+						</tr>
+                    {% endfor %}
+						
+					</tbody>
+				</table>
+                
+                
+			</div>
+            {% if entity_summ %}
+            <div class="col-sm-12">
+			<div class="total_area">
+				<ul>
+					<li><strong>CART SUB TOTAL</strong> <span>$ {{ entity_summ.sub_total }}</span></li>
+					<li><strong>TAX</strong> <span>$ {{ entity_summ.tax }}</span></li>
+					<li><strong>SHIPPING COST</strong> <span>$ {{ entity_summ.shipping_cost }}</span></li>
+					<li><strong>TOTAL</strong> <span>$ {{ entity_summ.total }}</span></li>
+				</ul>
+					<a class="btn btn-default update" href="{{path('front_office_user_basket') }}">BACK TO SHOPPING CART</a>
+                    <a class="btn btn-default check_out" href="">PLACE ORDER</a>
+			</div>
+		  </div>
+          {% endif %}
+		</div>
+        
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+    <script>
+      function updateCartItem(){
+        document.getElementById("update_cart_item").submit();
+      }
+    </script>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+Su\RestaurantBundle\Entity\ClientAddress:
+    type: entity
+    table: client_address
+    uniqueConstraints:
+        client_name:
+            columns:
+                - client_name
+                - email
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        clientName:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+        address1:
+            type: string
+            nullable: false
+            length: 256
+            options:
+                fixed: false
+        address2:
+            type: string
+            nullable: true
+            length: 256
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        zipcode:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+        nickname:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        creationDate:
+            type: datetime
+            nullable: false
+            column: creation_date
+        updateDate:
+            type: datetime
+            nullable: true
+            column: update_date
+        clientId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        mkdefault:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,51 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+
+
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+              <div class="features_items">
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="login-form"><!--login form-->
+						<h2>Reset Password</h2>
+                       {% block fos_user_content %}
+                      
+                       {% if invalid_username is defined %}
+                         <div style="padding: 5px; background: #FBDDE1; border:1px dashed #ddd; margin-bottom: 10px; color:red">
+                         {{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}
+                         </div>
+                       {% endif %}
+						<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+                            {{ form_widget(form) }}
+							<button type="submit" id="_submit" name="_submit" class="btn btn-success" style="border-radius: 5px;">{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</button>
+                            
+						</form>
+                        {% endblock fos_user_content %}
+                          </div><!--/login form-->
+				</div>
+			   </div>	
+			</div>
+		</div>
+	</section><!--/form-->
+	
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

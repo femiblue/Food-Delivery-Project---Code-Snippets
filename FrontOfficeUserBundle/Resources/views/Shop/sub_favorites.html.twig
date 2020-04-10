@@ -1,0 +1,72 @@
+<div class="features_items"><!--features_items-->
+    <h2 class="title text-center">My Favorites</h2>
+   {% for entity_fav_val in entity_fav %}
+    <div class="col-sm-3">
+        <div class="product-image-wrapper">
+            <div class="single-products">
+                <div class="productinfo text-center">
+                    <img src="{{ asset('images/dish/') }}/{{ entity_fav_val.image }}" style="" alt="" />
+                    {% if entity_fav_val.discount_price > 0 %}
+                      <h2 style="font-size: 22px;"><strike style="color:#FF9900 ;">${{ entity_fav_val.price }}</strike> | ${{ entity_fav_val.discount_price }}</h2>
+                    {% else %}
+                      <h2>${{ entity_fav_val.price }}</h2>
+                    {% endif %}
+                    <p>{{ entity_fav_val.name }}</p>
+                     <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+                         <input type="hidden" value="1" name = "qty" id="qty" />
+                         <input type="hidden" value="{{ entity_fav_val.discount_price }}" name = "discount_price" id="discount_price" />
+                         <input type="hidden" value="{{ entity_fav_val.dishId }}"  name="dish_id" id="dish_id"/>
+                         <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>&nbsp;
+                     </form>
+                    <div class="choose">
+					  <form name="remove_from_favorite" method="post" action="{{path('front_office_user_removefromfavorite')}}" >
+				
+						<a href="{{path('front_office_user_dish', {'id': entity_fav_val.snug})  }}" style="color: #FFF;" title="View Dish Detail"><button type="button" class="btn btn-default mydet"  ><i class="fa fa-cutlery"></i> Dish Detail</button></a>
+					  
+                        <input type="hidden" value="{{ entity_fav_val.favoriteId }}" name = "id" id="id" />
+                        <button type="submit" class="btn btn-default myfav" title="Remove from Favorites"  ><i class="fa fa-heart"></i> Remove</button>
+                     
+                    
+                      
+                    </form>
+				    </div>
+                </div>
+                <div class="product-overlay">
+                    <div class="overlay-content">
+                        <img src="{{ asset('images/dish/') }}/{{ entity_fav_val.image }}" style="" alt="" />
+                        {% if entity_fav_val.discount_price > 0 %}
+                         <h2 style="font-size: 22px;"><strike style="color:#FF9900 ;">${{ entity_fav_val.price }}</strike> | ${{ entity_fav_val.discount_price }}</h2>
+                        {% else %}
+                         <h2>${{ entity_fav_val.price }}</h2>
+                        {% endif %}
+                        <p>{{ entity_fav_val.name }}</p>
+                        <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+                         <input type="hidden" value="1" name = "qty" id="qty" />
+                         <input type="hidden" value="{{ entity_fav_val.discount_price }}" name = "discount_price" id="discount_price" />
+                         <input type="hidden" value="{{ entity_fav_val.dishId }}"  name="dish_id" id="dish_id"/>
+                         <button type="submit" class="btn btn-default add-to-cart" ><i class="fa fa-shopping-cart"></i>Add to cart</button>&nbsp;
+                        
+                        </form>
+
+                    <div class="choose">
+                     <form name="remove_from_favorite" method="post" action="{{path('front_office_user_removefromfavorite')}}" >
+				
+						<a href="{{path('front_office_user_dish', {'id': entity_fav_val.snug})  }}" style="color: #FFF;"  title="View Dish Detail"><button type="button" class="btn btn-default mydet"  ><i class="fa fa-cutlery"></i> Dish Detail</button></a>
+					  
+                        <input type="hidden" value="{{ entity_fav_val.favoriteId }}" name = "id" id="id" />
+                        <button type="submit" class="btn btn-default myfav" title="Remove from Favorites"  ><i class="fa fa-heart"></i> Remove</button>
+                     
+                    
+                      
+                    </form>
+				    </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>                    
+    {% endfor %}
+    
+    
+</div>

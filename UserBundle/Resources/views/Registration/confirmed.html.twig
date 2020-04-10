@@ -1,0 +1,46 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+              <div class="features_items">
+				<div class="col-sm-4 col-sm-offset-4">
+                    <h2 class="title text-center">Signup - Confirm Email</h2>                
+					<div class="login-form"><!--login form-->
+						
+                       {% block fos_user_content %}
+                      
+                        <p>{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle') }}</p>
+                            {% if app.session is not empty %}
+                                {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+                                {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a></p>{% endif %}
+                            {% endif %}
+                        {% endblock fos_user_content %}
+                    </div><!--/login form-->
+				</div>
+			   </div>	
+			</div>
+		</div>
+	</section><!--/form-->
+	
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

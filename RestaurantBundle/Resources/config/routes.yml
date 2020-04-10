@@ -1,0 +1,4 @@
+category:
+    prefix: /
+    type:     annotation
+    resource: "@SuRestaurantBundle/Controller/"

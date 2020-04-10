@@ -1,0 +1,101 @@
+parameters:
+    su_restaurant.restaurant.handler.class:         Su\RestaurantBundle\Handler\RestaurantHandler
+    su_restaurant.category.class:                   Su\RestaurantBundle\Entity\Category
+    su_restaurant.form.type.category.class:         Su\RestaurantBundle\Form\CategoryType
+    su_restaurant.dish.class:                       Su\RestaurantBundle\Entity\Dish
+    su_restaurant.form.type.dish.class:             Su\RestaurantBundle\Form\DishType
+    su_restaurant.shop.class:                       Su\RestaurantBundle\Entity\Shop
+    su_restaurant.form.type.shop.class:             Su\RestaurantBundle\Form\ShopType
+    su_restaurant.favorites.class:                  Su\RestaurantBundle\Entity\Favorites
+    su_restaurant.form.type.favorites.class:        Su\RestaurantBundle\Form\FavoritesType
+    su_restaurant.specialoffers.class:              Su\RestaurantBundle\Entity\Specialoffers
+    su_restaurant.form.type.specialoffers.class:    Su\RestaurantBundle\Form\SpecialoffersType
+    su_restaurant.order.class:                      Su\RestaurantBundle\Entity\ClientOrder
+    su_restaurant.form.type.order.class:            Su\RestaurantBundle\Form\ClientOrderaType
+    su_restaurant.orderdish.class:                  Su\RestaurantBundle\Entity\OrderDish
+    su_restaurant.form.type.orderdish.class:        Su\RestaurantBundle\Form\OrderDishaType
+    su_restaurant.clientaddress.class:              Su\RestaurantBundle\Entity\ClientAddress
+    su_restaurant.form.type.clientaddress.class:    Su\RestaurantBundle\Form\ClientAddressaType
+    su_restaurant.delivery.class:                   Su\RestaurantBundle\Entity\DeliveryOrder
+    su_restaurant.form.type.delivery.class:         Su\RestaurantBundle\Form\DeliveryOrderaType
+    su_restaurant.siteconfig.class:                 Su\RestaurantBundle\Entity\SiteConfig
+    su_restaurant.form.type.siteconfig.class:       Su\RestaurantBundle\Form\SiteConfigType
+
+services:
+    su_restaurant.category.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.category.class%'
+            - '%su_restaurant.form.type.category.class%'
+            - '@form.factory'
+    su_restaurant.dish.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.dish.class%'
+            - '%su_restaurant.form.type.dish.class%'
+            - '@form.factory'
+
+    su_restaurant.shop.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.shop.class%'
+            - '%su_restaurant.form.type.shop.class%'
+            - '@form.factory'
+    su_restaurant.favorites.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.favorites.class%'
+            - '%su_restaurant.form.type.favorites.class%'
+            - '@form.factory'
+    su_restaurant.specialoffers.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.specialoffers.class%'
+            - '%su_restaurant.form.type.specialoffers.class%'
+            - '@form.factory'
+
+    su_restaurant.order.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.order.class%'
+            - '%su_restaurant.form.type.order.class%'
+            - '@form.factory'
+    su_restaurant.orderdish.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.orderdish.class%'
+            - '%su_restaurant.form.type.orderdish.class%'
+            - '@form.factory'
+
+    su_restaurant.clientaddress.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.clientaddress.class%'
+            - '%su_restaurant.form.type.clientaddress.class%'
+            - '@form.factory'
+    su_restaurant.delivery.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.delivery.class%'
+            - '%su_restaurant.form.type.delivery.class%'
+            - '@form.factory'
+    su_restaurant.siteconfig.handler:
+        class: Su\RestaurantBundle\Handler\RestaurantHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%su_restaurant.siteconfig.class%'
+            - '%su_restaurant.form.type.siteconfig.class%'
+            - '@form.factory'
+
+#    su_restaurant.example:
+#        class: Su\RestaurantBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

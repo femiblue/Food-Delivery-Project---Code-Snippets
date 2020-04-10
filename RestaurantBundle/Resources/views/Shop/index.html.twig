@@ -1,0 +1,102 @@
+{% extends 'JordiLlonchCrudGeneratorBundle::layout.html.twig' %}
+
+{% block title %}
+{{ parent() }} - {{ 'views.index.list'|trans({'%entity%': 'Shop'}, 'JordiLlonchCrudGeneratorBundle') }}
+{% endblock %}
+
+{% block page %}
+
+<div class="row">
+
+    <div class="span8">
+        <h1>{{ 'views.index.list'|trans({'%entity%': 'Shop'}, 'JordiLlonchCrudGeneratorBundle') }}</h1>
+    </div>
+    <div class="span2">
+        {% if form_errors(filterForm) %}
+        <div class="alert alert-block alert-error fade in form-errors">
+            {{ form_errors(filterForm) }}
+        </div>
+        {% endif %}
+        &nbsp;
+    </div>
+    <div class="span2">
+        <div class="filters-right">
+            <a class="btn dropdown-toggle" data-toggle="collapse" data-target="#filters">
+                {{ 'views.index.filters'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+                <span class="caret"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="span12">
+        <div id="filters" class="collapse">
+
+            <form class="well" action="{{ path('shop') }}" method="get" {{ form_enctype(filterForm) }}>
+                {{ form_row(filterForm.shopId) }}
+                {{ form_row(filterForm.shopName) }}
+                {{ form_row(filterForm.shopDescription) }}
+                {{ form_row(filterForm.shopLocation) }}
+                {{ form_row(filterForm.shopZipcode) }}
+                {{ form_rest(filterForm) }}
+
+                <p>
+                    <button type="submit" name="filter_action" value="filter">{{ 'views.index.filter'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+                    <button type="submit" name="filter_action" value="reset">{{ 'views.index.reset'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div class="span12">
+
+    <table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Shop Id</th>
+            <th>Shop Logo</th>
+            <th>Shop Name</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Creationdate</th>
+            <th>Updatedate</th>
+            <th>{{ 'views.index.actions'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('shop_show', { 'id': entity.shopId }) }}">{{ entity.shopId }}</a></td>
+
+            <td><img src="{{ asset(vich_uploader_asset(entity, 'shopLogoFile')) }}" alt="{{entity.shopName }}-{{ entity.shopLogo }}" width="200" /></td>
+            <td>{{ entity.shopName }}</td>
+            <td>{{ entity.shopDescription }}</td>
+            <td>{{ entity.shopLocation }}</td>
+            <td>{{ entity.shopZipcode }}</td>
+            <td>{% if entity.shopCreatedate %}{{ entity.shopCreatedate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.shopLastupdate %}{{ entity.shopLastupdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+        <a class="btn btn-mini" href="{{ path('shop_show', { 'id': entity.shopId }) }}">
+            {{ 'views.actions.show'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+        </a>
+        <a class="btn btn-mini" href="{{ path('shop_edit', { 'id': entity.shopId }) }}">
+            {{ 'views.actions.edit'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+        </a>            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    </div>
+
+    <div class="span4">
+    {{ pagerHtml|raw }}
+    </div>
+
+        <div class="span8">
+    <a class="btn btn-primary likepaginator" href="{{ path('shop_new') }}">
+            {{ 'views.index.createnew'|trans({}, 'JordiLlonchCrudGeneratorBundle') }} Shop
+        </a>
+    </div>
+    </div>
+
+{% endblock %}

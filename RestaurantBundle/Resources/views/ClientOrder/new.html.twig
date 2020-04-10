@@ -1,0 +1,29 @@
+{% extends 'JordiLlonchCrudGeneratorBundle::layout.html.twig' %}
+
+{% block title %}
+{{ parent() }} - {{ 'views.new.creation'|trans({'%entity%': 'ClientOrder'}, 'JordiLlonchCrudGeneratorBundle') }}
+{% endblock %}
+
+{% block page %}
+
+<h1>{{ 'views.new.creation'|trans({'%entity%': 'ClientOrder'}, 'JordiLlonchCrudGeneratorBundle') }}</h1>
+
+<form class="well" action="{{ path('clientorder_create') }}" method="post" {{ form_enctype(form) }}>
+
+    {{ form_widget(formDish) }}
+    {{ form_widget(formAddress) }}
+    {{ form_widget(form) }}
+
+    <p>
+        <button type="submit" class="btn btn-success">{{ 'views.new.create'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}</button>
+    </p>
+</form>
+
+<div>
+    <div class="float-left">
+        <a class="btn" href="{{ path('clientorder') }}">
+            {{ 'views.recordactions.backtothelist'|trans({}, 'JordiLlonchCrudGeneratorBundle') }}
+        </a>
+    </div>
+</div>
+{% endblock %}

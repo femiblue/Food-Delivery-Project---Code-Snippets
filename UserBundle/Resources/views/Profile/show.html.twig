@@ -1,0 +1,106 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<div style="height: 50px;"></div>
+<section>
+    <div class="container">
+        <div class="row">
+        
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+
+                    <div class="brands_products">
+                        <h2>Stores</h2>
+                        <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#"> <span class="pull-right">(50)</span>Papa Johns</a></li>
+                                <li><a href="#"> <span class="pull-right">(56)</span>Mi Pueblito</a></li>
+                                <li><a href="#"> <span class="pull-right">(27)</span>El Rincon Boricua</a></li>
+                                <li><a href="#"> <span class="pull-right">(32)</span>Loco Taqueria & Oyster Bar</a></li>
+                                <li><a href="#"> <span class="pull-right">(5)</span>Masona Grill</a></li>
+                                <li><a href="#"> <span class="pull-right">(9)</span>Masona Grill</a></li>
+                                <li><a href="#"> <span class="pull-right">(179)</span>All Restaurants</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="shipping text-center">
+                        <a href="#">
+                            <img src="{{ asset('images/home/shipping.jpg') }}" alt="" />
+                        </a>
+                    </div>
+<br /><br />
+                </div>
+            </div>
+            
+            
+            
+            <div class="col-sm-9 padding-right" style="margin-bottom: 20px;">
+                <div class="features_items"><!--Account_items-->
+                    <h2 class="title text-center">My Account</h2>
+                    <div class="col-sm-6 col-sm-offset-0">
+                    <div class="fos_user_user_show">
+                        <div class="intab">
+                            <strong>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}</strong>: {{ user.username }}
+                        </div>
+                        <div class="intab1">
+                            <strong>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}</strong>: {{ user.email }}
+                        </div>
+                        <div class="intab" >
+                            <strong>Full Name</strong>: {{ user.fullname }}
+                        </div>
+                       
+                        <br />
+                        
+                        <div style="display: grid;">
+                        
+                                 <ul>
+                					<a class="btn btn-success" title="Update Account" href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user" style="color: black;"></i>&nbsp;Update Account</a>
+                                    <a class="btn btn-success" title="Change Password" href="{{ path('fos_user_change_password') }}"><i class="fa fa-lock" style="color: black;"></i>&nbsp;Change Password</a>
+                                </ul>
+                        
+                        </div>
+                        
+                        
+                    </div>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-0" style="border-left: 1px dashed white;">
+                    ggadagdf
+                    
+                    
+                    </div>
+                   
+                             
+                          
+
+                </div><!--Account_items-->
+
+               
+
+
+
+           </div>
+           
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

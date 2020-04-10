@@ -1,0 +1,55 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<section style="border: 0px solid #fff; margin-top: 40px;">
+    <div class="container" >
+        <div class="row"  >
+
+            <div class="col-sm-12 padding-right">
+                
+                
+              
+               
+                <div class="category-tab">
+                   <h2 class="title text-center">How It Works</h2>
+                    <div class="tab-content">
+                        
+                          How It Works...
+
+
+
+                    </div>
+
+                </div>
+                
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+               <div class="features_items">
+			    <h2 class="title text-center">Login to your account</h2>
+                    
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="login-form"><!--login form-->
+                     
+                       {% block fos_user_content %}
+                       {% if error %}
+                            <div style="padding: 5px; background: #FBDDE1; border:1px dashed #ddd; margin-bottom: 10px; color:red">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                       {% endif %}
+						<form action="{{ path("fos_user_security_check") }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+							<input type="text" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" id="username" name="_username" value="{{ last_username }}" required="required" />
+                            <input type="password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" id="password" name="_password" required="required" />
+							<span>
+								<input type="checkbox" class="checkbox"  id="remember_me" name="_remember_me" value="on" > 
+								{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+							</span>
+							<button type="submit" id="_submit" name="_submit" class="btn btn-success" style="border-radius: 5px;"><i class="fa fa-sign-in" style="color: black;"></i>&nbsp;{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                           
+						</form><hr style="background-color: #DFA71E; height: 1px; border:0px;" />
+                        {% endblock fos_user_content %}
+                           <a href="{{ path('connect_facebook') }}"><img src="{{ asset('images/facebook1_login.png') }}" alt="" style="width: 80%; border:0px solid #ddd;" /></a>
+					       <hr style="background-color: #DFA71E; height: 1px; border:0px;" />
+                           <a href="{{ path('fos_user_resetting_request') }}">
+                            <button type="button"  class="btn btn-success" style="display: inline;"><i class="fa fa-unlock-alt" style="color: black;"></i>&nbsp;Reset Password</button>
+                            </a>
+                            <a href="{{ path('fos_user_registration_register') }}">
+                            <button type="button"  class="btn btn-success" style="display: inline;"><i class="fa fa-plus-square" style="color: black;"></i>&nbsp;New Here? Signup!</button>
+                            </a>
+                          </div><!--/login form--><br /><br />
+				</div>
+			 </div>	
+			</div>
+		</div>
+	</section><!--/form-->
+	
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+    
+{% endblock %}
+
+</body>
+</html>

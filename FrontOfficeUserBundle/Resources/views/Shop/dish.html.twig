@@ -1,0 +1,78 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<div style="height: 50px;"></div>
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                           
+							<div class="product-information"><!--/product-information-->
+                             <h2>{{ entity_dish.name }}</h2>
+                                <div style="display: inline-table; border: 0px solid #fff;">
+                                    <!-- Use this for production-->
+                                    <!--<img src="{{ url('su_front_office_homepage') }}/images/dish/{{ entity_dish.image }}" class="newarrival" alt="{{ entity_dish.name }}" title="{{ entity_dish.name }}" />-->
+                                    <img src="{{ asset('images/dish/') }}/{{ entity_dish.image }}" class="newarrival" alt="{{ entity_dish.name }}" title="{{ entity_dish.name }}" />
+                                </div>
+                                <div style="display: inline-table; border: 0px solid #fff;">
+                                   <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+    								<p>{{ entity_dish.description }}</p>
+    								<!--<img src="images/product-details/rating.png" alt="" />-->
+    								<span>
+                                        {% if entity_dish.discount_price > 0 %}
+                                        <span><strike>US $ {{ entity_dish.price }}</strike> | US $ {{ entity_dish.discount_price }}</span>
+                                        {% else %}
+    									<span>US $ {{ entity_dish.price }}</span>
+                                        {% endif %}
+    									<label>Quantity:</label>
+                                        <select name = "qty" id="qty" style="width: 60px;">
+                                          {% for i in 1..50 %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                          {% endfor %}
+             
+                                        </select>
+                                        
+                                        <input type="hidden" value="{{ entity_dish.discount_price }}"  name="discount_price" id="discount_price"/>
+                                        <input type="hidden" value="{{ entity_dish.dishId }}"  name="dish_id" id="dish_id"/>
+    									<button type="submit" class="btn cart">
+    										<i class="fa fa-shopping-cart"></i>
+    										Add to cart
+    									</button>
+    								</span>
+    								<p><b>Store:</b> {{ entity_shop.shopName }}</p>
+                                    </form>
+                                </div>                                                            
+								
+							
+							</div><!--/product-information-->
+					
+                        </div>
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+{% endblock %}
+
+</body>
+</html>

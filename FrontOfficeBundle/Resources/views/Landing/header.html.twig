@@ -1,0 +1,96 @@
+<header id="header" class="header_surround" ><!--header-->
+    
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <a href="{{path('su_front_office_homepage') }}"><img src="{{ asset('images/home/logo_small.png') }}" alt="" /></a>
+                    </div>
+                   
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                        {% for entity_cat_val in entity_cat.main %}
+                            <li><a href="{{path('front_office_user_dishesbycat', {'id': entity_cat_val.snug}) }}"> {{ entity_cat_val.name }}</a></li>
+                        {% endfor %}
+                            <li><a href="{{path('front_office_user_homepage') }}"> Others&nbsp;<i class="fa fa-arrow-circle-o-down"></i></a>
+                                <ul role="menu" class="top-sub-menu">
+                                 {% for entity_catsub_val in entity_cat.sub %}
+                                    <li><a href="{{path('front_office_user_dishesbycat', {'id': entity_catsub_val.snug}) }}">{{ entity_catsub_val.name }}</a></li>
+                                 {% endfor %}
+                                </ul>
+                                
+                            </li>
+                                                   
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+    <div class="header-bottom"><!--header-bottom-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="search_box pull-left" >
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        <input type="text" placeholder="Search" id="myTextField" />
+                    </ul>
+                        <div id="match" style="border: 0px solid #fff;"></div>
+                    </div>
+                   </div>
+                    <div class="mainmenu pull-right">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                          <li> <a href="{{ path('front_office_user_stores') }}"  class="active"><i class="fa fa-building-o"></i> Food Stores</a> </li>  
+                          <li> <a href="{{ path('front_office_user_homepage') }}" ><i class="fa fa-cutlery"></i> Food Categories</a> </li>  
+                          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li class="dropdown">
+                            <a href="#"><i class="fa fa-angle-down"></i>
+                             {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                            </a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="{{ path('front_office_user_basket') }}"><i class="fa fa-shopping-cart"></i> 
+                                    My Cart&nbsp;&nbsp;
+                                    {% if num_cart_items > 0 %}
+                                    <div class="cart_circle">
+                                    {{ num_cart_items }}
+                                    </div>
+                                    {% endif %}
+                                    </a></li>
+                                    <li><a href="{{ path('front_office_user_orders') }}"><i class="fa fa-tags"></i> My Orders</a></li>
+                                    <li><a href="{{ path('front_office_user_ordershistory') }}"><i class="fa fa-list"></i> Orders History</a></li>
+                                    <li><a href="{{ path('front_office_user_favorites') }}"><i class="fa fa-heart"></i> My Favorites</a></li>
+                                    <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> My Account</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i> Logout</a></li>
+                                </ul>
+                            </li>
+                         {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> Login </a></li>
+                            <li><a href="{{ path('front_office_user_basket') }}" ><i class="fa fa-shopping-cart"></i>
+                            {% if num_cart_items > 0 %}
+                            <div class="cart_circle">
+                            {{ num_cart_items }}
+                            </div>
+                            {% endif %}
+                            </a></li>
+                         {% endif %}   
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div><!--/header-bottom-->
+</header><!--/header-->

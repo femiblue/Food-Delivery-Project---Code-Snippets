@@ -1,0 +1,106 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+<div style="height: 50px;"></div>
+<section >
+    <div class="container">
+        <div class="row">
+        
+            
+            <div class="col-sm-12 padding-right">
+         {% if entity_dishes %}
+              
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">{{ entity_shop_name}}</h2>
+                   {% for entity_dishes_val in entity_dishes %}
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="{{ asset('images/dish/') }}/{{ entity_dishes_val.image }}" alt="" />
+                                    <h2>${{ entity_dishes_val.price }}</h2>
+                                    <p>{{ entity_dishes_val.name }}</p>
+                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    <div class="choose">
+									  <ul class="nav nav-pills nav-justified">
+										<li><a href="{{path('front_office_user_dish', {'id': entity_dishes_val.snug})  }}"><i class="fa fa-cutlery"></i>Dish Detail</a></li>
+                                        {% if entity_dishes_val.isFavorite %}
+                                        <li><i class="fa fa-plus-square"></i> Add as Favorite</li>
+                                        {% else %}
+                                        <li><a href="{{path('front_office_user_afavorites', {'id': entity_dishes_val.dishId})  }}"><i class="fa fa-heart"></i> Add as Favorite</a></li>
+                                        {% endif %}
+									  </ul>
+								    </div>
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <img src="{{ asset('images/dish/') }}/{{ entity_dishes_val.image }}" alt="" />
+                                        <h2>${{ entity_dishes_val.price }}</h2>
+                                        <p>{{ entity_dishes_val.name }}</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    <div class="choose">
+									  <ul class="nav nav-pills nav-justified">
+										<li><a href="{{path('front_office_user_dish', {'id': entity_dishes_val.snug})  }}" style="color: #FFF;"><i class="fa fa-cutlery"></i>Dish Detail</a></li>
+                                        {% if entity_dishes_val.isFavorite %}
+                                        <li><i class="fa fa-plus-square"></i> Add as Favorite</li>
+                                        {% else %}
+                                        <li><a href="{{path('front_office_user_afavorites', {'id': entity_dishes_val.dishId})  }}" style="color: #FFF;"><i class="fa fa-heart"></i> Add as Favorite</a></li>
+									    {% endif %}
+                                      </ul>
+								    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>                    
+                    {% endfor %}
+                    
+                    
+                </div>
+                <hr />
+              {% endif %}
+            
+            {% if entity_fav %}
+              
+                {% include 'SuFrontOfficeUserBundle:Shop:sub_favorites.html.twig' %}
+                <!--features_items-->
+            
+              {% endif %}
+            </div>
+             
+              
+        
+             
+              
+
+            
+         
+              
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+{% endblock %}
+
+</body>
+</html>

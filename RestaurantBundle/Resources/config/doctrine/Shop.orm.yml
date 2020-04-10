@@ -1,0 +1,56 @@
+Su\RestaurantBundle\Entity\Shop:
+    type: entity
+    table: shop
+    uniqueConstraints:
+        shopNname:
+            columns:
+                - shop_name
+    id:
+        shopId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: shop_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        shopName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        shopDescription:
+            type: string
+            nullable: true
+            options:
+                fixed: false
+        shopLogo:
+            type: string
+            nullable: true
+            length: 1000
+            options:
+                fixed: false
+        shopLocation:
+            type: string
+            nullable: false
+            length: 400
+            options:
+                fixed: false
+        shopZipcode:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        shopCreatedate:
+            type: datetime
+            nullable: false
+            column: shop_createdate
+        shopLastupdate:
+            type: datetime
+            nullable: true
+            column: shop_lastupdate
+    lifecycleCallbacks: {  }

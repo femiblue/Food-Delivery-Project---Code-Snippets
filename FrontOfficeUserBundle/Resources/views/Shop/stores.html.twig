@@ -1,0 +1,98 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<div style="height: 50px;"></div>
+<section>
+    <div class="container">
+        <div class="row">
+        
+            
+            <div class="col-sm-12 padding-right">
+            {% if entity_store %}
+                <div class="category-tab"><!--category-tab-->
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" >
+                        <h2 class="title text-center">Available Stores</h2>
+                        {% for entity_store_val in entity_store %}
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="{{ asset('images/shop/') }}/{{ entity_store_val.shopLogo }}" alt="" />
+                                           <!--<h2>&nbsp;</h2>-->
+                                            <p style="padding-top: 6px;">{{ entity_store_val.shopName }} </p>
+                                            
+                                            <div class="choose">
+        									  <ul class="nav nav-pills nav-justified">
+        									  <li><a href="{{path('front_office_user_dishesbystore', {'id': entity_store_val.snug})  }}" style="color: #FFF; width:100%; border:0px;"><i class="fa fa-cutlery"></i>Check out dishes in this store</a></li>	
+        									  </ul>
+        								    </div>
+                                           
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                            
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div><!--/category-tab-->
+
+
+            <hr />
+            {% endif %}
+            
+            {% if entity_fav %}
+              
+                <!--features_items-->
+                {% include 'SuFrontOfficeUserBundle:Shop:sub_favorites.html.twig' %}
+            
+              {% endif %}
+            </div>
+             
+              
+        
+             
+              
+
+            
+         
+              
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+{% endblock %}
+
+</body>
+</html>

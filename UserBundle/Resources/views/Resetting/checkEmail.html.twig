@@ -1,0 +1,41 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="login-form"><!--login form-->
+						<h2>Reset Password</h2>
+                       {% block fos_user_content %}
+                      <p>
+                      {{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
+                      </p>
+                        {% endblock fos_user_content %}
+                          </div><!--/login form-->
+				</div>
+				
+			</div>
+		</div>
+	</section><!--/form-->
+	
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

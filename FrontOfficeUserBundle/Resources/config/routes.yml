@@ -1,0 +1,5 @@
+front_office_user_login_check:
+    prefix: /login_check
+    type:     annotation
+    resource: "@SuFrontOfficeUserBundle/Resources/"
+

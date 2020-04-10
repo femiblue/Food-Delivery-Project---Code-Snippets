@@ -1,0 +1,202 @@
+{% include 'SuFrontOfficeBundle:Landing:header_top.html.twig' %}
+<body>
+{% block body %}
+{% include 'SuFrontOfficeBundle:Landing:header.html.twig' %}
+
+<section id="slider"><!--slider-->
+    <div class="container"  style="border:  0px solid; width: 100%; padding: 0px;">
+        <div class="row" style="border:  0px solid; width: 100%; padding: 0px; margin: 0px;">
+            <div class="col-sm-12" style="border:  0px solid; width: 100%; padding: 0px; margin: 0px;">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel" >
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider-carousel" data-slide-to="1"></li>
+                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner" >
+                    {% for entity_specials_val in entity_specials %}
+                    
+                        <div class="item {% if entity_specials_val.specialOfferStatus == 2 %} active {% endif %} homebanner" 
+                        style=" background: transparent url({{ asset('images/specialoffer/') }}/{{ entity_specials_val.specialOfferBanner }});">
+                            <div class="col-sm-6 homebanner_col pull-left" >
+                                <h1 style="margin-top:20px;"><span  >{{ entity_specials_val.specialOfferTitle }}</span></h1>
+                                <h2 ><strike>${{ entity_specials_val.orig_price }}</strike> | for Only ${{ entity_specials_val.specialOfferPrice }}</h2>
+                                <p>{{ entity_specials_val.specialOfferDescription }}</p>
+                                <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+                                <button type="submit" class="homebanner_btn btn btn-default get " >
+                                 Order it now
+                                </button>
+                                <input type="hidden" value="1" name = "qty" id="qty" />
+                                <input type="hidden" value="{{ entity_specials_val.specialOfferPrice }}" name = "discount_price" id="discount_price" />
+                                <input type="hidden" value="{{ entity_specials_val.specialOfferDish }}"  name="dish_id" id="dish_id"/>
+                                
+                                <button type="button" class="homebanner_btn1 btn btn-default get " >
+                                 <a href="{{path('front_office_user_dish', {'id': entity_specials_val.snug})  }}" style="color: #FFF;">
+                                View Details
+                                </a>
+                                </button></form>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                    
+                       
+                    </div>
+
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section><!--/slider-->
+
+<section style="border: 0px solid #fff; margin-top: -40px;">
+    <div class="container" >
+        <div class="row"  >
+
+            <div class="col-sm-12 padding-right">
+            
+                    {% if entity_rand %}
+                        <div class="category-tab"><!--features_items-->
+                        {% if app.session.flashBag.has('success') %}
+                        <div class="alert alert-success" style="background-color: #ffffff;"> 
+                        <i class="fa fa-check-square"></i>
+                            {% for msg in app.session.flashBag.get('success') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if app.session.flashBag.has('error') %}
+                        <div class="alert alert-danger" style="background-color: #ffffff;"> 
+                        <i class="fa fa-info-circle"></i>
+                            {% for msg in app.session.flashBag.get('error') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                
+                    <!--<h2 class="title text-center">Popular Dishes</h2>--><br />
+                   {% for entity_rand_val in entity_rand %}
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center" style="background: #FFFFFF; padding: 10px; " >
+                                    <a href="{{path('front_office_user_dish', {'id': entity_rand_val.snug})  }}" title="View details of {{ entity_rand_val.name }}"><img src="{{ asset('images/dish/') }}/{{ entity_rand_val.image }}" alt="" style="border-radius: 7px;" /></a>
+                                    {% if entity_rand_val.discount_price > 0 %}
+                                    <h2 style="font-size: 22px;"><strike style="color:#FF9900 ;">${{ entity_rand_val.price }}</strike> | ${{ entity_rand_val.discount_price }}</h2>
+                                    {% else %}
+                                    <h2 style="font-size: 22px;">${{ entity_rand_val.price }}</h2>
+                                    {% endif %}
+                                    <p style="font-size: 16px; color:#FF9900; ">{{ entity_rand_val.name }}</p>
+                                    <form name="add_to_cart" method="post" action="{{path('front_office_user_addtocart')}}" >
+                                     <input type="hidden" value="1" name = "qty" id="qty" />
+                                     <input type="hidden" value="{{ entity_rand_val.discount_price }}" name = "discount_price" id="discount_price" />
+                                     <input type="hidden" value="{{ entity_rand_val.dishId }}"  name="dish_id" id="dish_id"/>
+                                     <button type="submit" class="btn btn-default add-to-cart"style="font-size: 12px; border: 1px solid;"><i class="fa fa-shopping-cart"></i>Add to cart</button>&nbsp;
+                                    
+                                     <a href="{{path('front_office_user_dish', {'id': entity_rand_val.snug})  }}" class="btn btn-default add-to-cart"style="font-size: 12px; border: 1px solid;"><i class="fa fa-cutlery"></i>Dish Detail</a>
+                                    </form>
+                                    
+                                    <!--Add as favorite or otherwise -->
+                                    {% if entity_rand_val.is_favorite == true %}
+                                     <form name="remove_from_favorite" method="post" action="{{path('front_office_user_removefromfavorite')}}" >
+                                       <input type="hidden" value="{{ entity_rand_val.fav_id }}" name = "id" id="id" />
+                                       <button type="submit" title="Remove from Favorites" class="favotites_a"><i class="fa fa-heart"></i></button>
+                                      
+                                      </form>
+                                     {% else %}
+                                     <form name="add_to_favorite" method="post" action="{{path('front_office_user_addtofavorites')}}" >
+                                       <input type="hidden" value="{{ entity_rand_val.dishId }}" name = "id" id="id" />
+                                       <button type="submit" title="Add to Favorites" class="favotites"><i class="fa fa-heart"></i></button>
+                                       
+                                    </form>
+                                    {% endif %}
+                                     
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>                    
+                    {% endfor %}
+                    
+                    
+                </div><!--features_items-->
+              {% endif %}
+            
+               {% if entity_fav %}
+               <hr />
+                {% include 'SuFrontOfficeUserBundle:Shop:sub_favorites.html.twig' %}
+                <!--features_items-->
+                <!--<div style="height: 20px;">&nbsp;</div>-->
+              {% endif %}
+                
+                
+               {% if entity_cate %} 
+               <hr />
+                <div class="category-tab"><!--category-tab-->
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" >
+                        {% for entity_cate_val in entity_cate %}
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="{{ asset('images/dish/') }}/{{ entity_cate_val.image }}" alt="" />
+                                           <!-- <h2>$56</h2>-->
+                                            <p>{{ entity_cate_val.catName }} </p>
+                                            <a href="{{path('front_office_user_dishesbycat', {'id': entity_cate_val.snug})  }}" class="btn btn-default add-to-cart"><i class="fa fa-cogs"></i>More</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}  
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div><!--/category-tab-->
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'SuFrontOfficeBundle:Landing:footer.html.twig' %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/price-range.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script src="{{ asset('js/autocomplete-dishes.js') }}"></script>
+    <script>
+        var loader = "{{ asset('images/ajax-loader.gif') }}"; //link to the animated loader-small.gif
+        var ROOT_URL = "{{ url('su_front_office_homepage')}}"; //your root URL, used in autocomplete-dishes.js file
+    </script>
+{% endblock %}
+
+</body>
+</html>
